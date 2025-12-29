@@ -18,7 +18,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   final supabase = Supabase.instance.client;
 
-
   Future<void> nextScreen()async{
     if(supabase.auth.currentUser != null){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>MainScreen()));
