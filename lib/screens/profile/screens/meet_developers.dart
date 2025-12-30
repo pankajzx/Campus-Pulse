@@ -3,11 +3,9 @@ import 'package:campuspulse/common/widgets/shadow_container.dart';
 import 'package:campuspulse/utils/constants/pulse_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../../common/widgets/circular_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../common/widgets/top_navigation_bar.dart';
 import '../../../utils/constants/pulse_colors.dart';
-import '../../../utils/utils.dart';
 
 class MeetDevelopers extends StatefulWidget {
   const MeetDevelopers({super.key});
@@ -17,6 +15,18 @@ class MeetDevelopers extends StatefulWidget {
 }
 
 class _MeetDevelopersState extends State<MeetDevelopers> {
+
+  final githubLink = Uri.parse('https://github.com/pankajzx');
+  
+  void visitAccounts()async{
+
+    if(!await launchUrl(githubLink)){
+      throw Exception('Could not launch $githubLink');
+    }
+
+  }
+
+
   double top1 = 150;
   double left1 = 70;
 
@@ -76,9 +86,20 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                         size: 17,
                         color: Colors.pink,
                       ),
-                      Text(
-                        'pankuub',
-                        style: PulseText.bodyLight,
+                      GestureDetector(
+                        onTap: ()async{
+                          final appUrl = Uri.parse("instagram://user?username=pankuub");
+                          final webUrl = Uri.parse("https://instagram.com/pankuub");
+                          if(await canLaunchUrl(appUrl)){
+                            await launchUrl(appUrl,mode: LaunchMode.externalApplication);
+                          } else{
+                            await launchUrl(webUrl,mode: LaunchMode.externalApplication);
+                          }
+                        },
+                        child: Text(
+                          'pankuub',
+                          style: PulseText.bodyLight,
+                        ),
                       ),
                     ],
                   ),
