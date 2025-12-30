@@ -138,7 +138,8 @@ Campus Pulse demonstrates the effective application of mobile technologies in ca
 
 ## Author
 
-**Vignesh Parmar**, **Pankaj Kumar**
+- **Vignesh Parmar** 
+- **Pankaj Kumar**
 
 
 ---
