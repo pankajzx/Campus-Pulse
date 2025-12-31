@@ -170,6 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: PulseColors.red,
                     icon: FaIcon(FontAwesomeIcons.lock),
                     name: 'Privacy Policy',
+                    //This is for testing purpose
                     onTap: () {
                       Navigator.push(
                         context,
