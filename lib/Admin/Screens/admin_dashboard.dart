@@ -14,7 +14,7 @@ class AdminDashboard extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          "Admin Dashboard Screen",
+          "user Dashboard Screen",
           style: TextStyle(color: Colors.white),
         ),
       ),
