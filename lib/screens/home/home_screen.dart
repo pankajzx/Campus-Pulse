@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
             itemBuilder: (context, index) {
               final e = events[index];
 
-              // first card can be featured
               if (index == 0) {
                 return Padding(
                   padding: Utils.screenPadding(),

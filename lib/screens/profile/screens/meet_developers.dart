@@ -1,6 +1,8 @@
 import 'package:campuspulse/common/widgets/glass_card.dart';
+import 'package:campuspulse/common/widgets/gradient_background.dart';
 import 'package:campuspulse/common/widgets/shadow_container.dart';
 import 'package:campuspulse/utils/constants/pulse_text.dart';
+import 'package:campuspulse/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -54,6 +56,59 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                   top1 += details.delta.dy;
                 });
               },
+
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) {
+                    return FractionallySizedBox(
+                      heightFactor: 0.4,
+                      child: GradientBackground(
+                        child: Column(
+                          spacing: 20,
+                          children: [
+                            Utils.spacePulse(),
+                            GlassCard(
+                              child: ListTile(
+                                leading: FaIcon(FontAwesomeIcons.instagram),
+                                title: Text('https://instagram.com/pankuub'),
+                                trailing: FaIcon(
+                                  FontAwesomeIcons.link,
+                                  size: 17,
+                                ),
+                              ),
+                            ),
+
+                            GlassCard(
+                              child: ListTile(
+                                leading: FaIcon(FontAwesomeIcons.github),
+                                title: Text('https://github.com/pankajzx'),
+                                trailing: FaIcon(
+                                  FontAwesomeIcons.link,
+                                  size: 17,
+                                ),
+                              ),
+                            ),
+
+                            GlassCard(
+                              child: ListTile(
+                                leading: FaIcon(FontAwesomeIcons.linkedin),
+                                title: Text('www.linkedin.com/in/pankajzx'),
+                                trailing: FaIcon(
+                                  FontAwesomeIcons.link,
+                                  size: 17,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+
               child: Column(
                 spacing: 5,
                 mainAxisSize: MainAxisSize.min,
@@ -66,18 +121,10 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                         image: DecorationImage(
                           image: NetworkImage(
                             "https://cdn.pixabay.com/photo/2020/01/07/23/01/sketch-4748895_1280.jpg",
-                            // "https://plus.unsplash.com/premium_vector-1741965732759-4af1a20c5e40?q=80&w=798&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                           ),
                           fit: BoxFit.cover,
                         ),
                         shape: BoxShape.circle,
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: PulseColors.blue,
-                        //     blurRadius: 100,
-                        //     spreadRadius: 1,
-                        //   ),
-                        // ],
                       ),
                     ),
                   ),
@@ -165,13 +212,6 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                           fit: BoxFit.cover,
                         ),
                         shape: BoxShape.circle,
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: PulseColors.blue,
-                        //     blurRadius: 100,
-                        //     spreadRadius: 1,
-                        //   ),
-                        // ],
                       ),
                     ),
                   ),
