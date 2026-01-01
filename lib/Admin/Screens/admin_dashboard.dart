@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'new_event_screen.dart';
+
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
 
@@ -9,7 +11,12 @@ class AdminDashboard extends StatelessWidget {
       backgroundColor: const Color(0xFF0E1328),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const NewEventScreen()),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -98,7 +105,12 @@ class AdminDashboard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const NewEventScreen()),
+                        );
+                      },
                       icon: const Icon(Icons.add),
                       label: const Text("Create Event"),
                       style: ElevatedButton.styleFrom(
