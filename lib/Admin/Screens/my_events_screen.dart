@@ -55,7 +55,7 @@ class MyEventsScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            /// LIST
+            /// LIS
             Expanded(
               child: ListView(
                 children: const [
