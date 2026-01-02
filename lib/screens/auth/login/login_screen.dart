@@ -6,6 +6,7 @@ import 'package:campuspulse/utils/constants/pulse_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/utils.dart';
+import '../forget_password/forget_password_screen.dart';
 import '../signup/signup_screen.dart';
 
 
@@ -76,12 +77,12 @@ class LoginScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (_) => const ForgetPasswordScreen(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ForgetPasswordScreen(),
+                          ),
+                        );
                       },
                       child: Text('Forget Password?', style: PulseText.body),
                     ),
