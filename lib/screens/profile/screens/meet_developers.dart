@@ -69,24 +69,57 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                           spacing: 20,
                           children: [
                             Utils.spacePulse(),
-                            GlassCard(
-                              child: ListTile(
-                                leading: FaIcon(FontAwesomeIcons.instagram),
-                                title: Text('https://instagram.com/pankuub'),
-                                trailing: FaIcon(
-                                  FontAwesomeIcons.link,
-                                  size: 17,
+                            GestureDetector(
+                              onTap: () async {
+                                final appUrl = Uri.parse(
+                                  "instagram://user?username=pankuub",
+                                );
+                                final webUrl = Uri.parse(
+                                  "https://instagram.com/pankuub",
+                                );
+                                if (await canLaunchUrl(appUrl)) {
+                                  await launchUrl(
+                                    appUrl,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                } else {
+                                  await launchUrl(
+                                    webUrl,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              child: GlassCard(
+                                child: ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.instagram),
+                                  title: Text('https://instagram.com/pankuub'),
+                                  trailing: FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: 17,
+                                  ),
                                 ),
                               ),
                             ),
 
-                            GlassCard(
-                              child: ListTile(
-                                leading: FaIcon(FontAwesomeIcons.github),
-                                title: Text('https://github.com/pankajzx'),
-                                trailing: FaIcon(
-                                  FontAwesomeIcons.link,
-                                  size: 17,
+                            GestureDetector(
+                              onTap: () async {
+                                final webUrl = Uri.parse(
+                                  "https://github.com/pankajzx",
+                                );
+
+                                await launchUrl(
+                                  webUrl,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              },
+                              child: GlassCard(
+                                child: ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.github),
+                                  title: Text('https://github.com/pankajzx'),
+                                  trailing: FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: 17,
+                                  ),
                                 ),
                               ),
                             ),
@@ -137,28 +170,7 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                         size: 17,
                         color: Colors.pink,
                       ),
-                      GestureDetector(
-                        onTap: () async {
-                          final appUrl = Uri.parse(
-                            "instagram://user?username=pankuub",
-                          );
-                          final webUrl = Uri.parse(
-                            "https://instagram.com/pankuub",
-                          );
-                          if (await canLaunchUrl(appUrl)) {
-                            await launchUrl(
-                              appUrl,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } else {
-                            await launchUrl(
-                              webUrl,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          }
-                        },
-                        child: Text('pankuub', style: PulseText.bodyLight),
-                      ),
+                      Text('pankuub', style: PulseText.bodyLight),
                     ],
                   ),
 
@@ -166,19 +178,7 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                     spacing: 7,
                     children: [
                       FaIcon(FontAwesomeIcons.github, size: 17),
-                      GestureDetector(
-                        onTap: () async {
-                          final webUrl = Uri.parse(
-                            "https://github.com/pankajzx",
-                          );
-
-                          await launchUrl(
-                            webUrl,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        },
-                        child: Text('pankajzx', style: PulseText.bodyLight),
-                      ),
+                      Text('pankajzx', style: PulseText.bodyLight),
                     ],
                   ),
                 ],
@@ -196,6 +196,83 @@ class _MeetDevelopersState extends State<MeetDevelopers> {
                   top2 += details.delta.dy;
                 });
               },
+
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) {
+                    return FractionallySizedBox(
+                      heightFactor: 0.4,
+                      child: GradientBackground(
+                        child: Column(
+                          spacing: 20,
+                          children: [
+                            Utils.spacePulse(),
+                            GestureDetector(
+                              onTap: () async {
+                                final appUrl = Uri.parse(
+                                  "instagram://user?username=_yourvignes",
+                                );
+                                final webUrl = Uri.parse(
+                                  "https://instagram.com/_yourvignes",
+                                );
+                                if (await canLaunchUrl(appUrl)) {
+                                  await launchUrl(
+                                    appUrl,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                } else {
+                                  await launchUrl(
+                                    webUrl,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              child: GlassCard(
+                                child: ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.instagram),
+                                  title: Text(
+                                    'https://instagram.com/_yourvignes',
+                                  ),
+                                  trailing: FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: () async {
+                                final webUrl = Uri.parse(
+                                  "https://github.com/vignesh562",
+                                );
+
+                                await launchUrl(
+                                  webUrl,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              },
+                              child: GlassCard(
+                                child: ListTile(
+                                  leading: FaIcon(FontAwesomeIcons.github),
+                                  title: Text('https://github.com/vignesh562'),
+                                  trailing: FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+
               child: Column(
                 spacing: 5,
                 mainAxisSize: MainAxisSize.min,
