@@ -1,3 +1,4 @@
+import 'package:campuspulse/Admin/Screens/admin_dashboard.dart';
 import 'package:campuspulse/common/widgets/shadow_container.dart';
 import 'package:campuspulse/screens/auth/login/login_screen.dart';
 import 'package:campuspulse/screens/main_screen.dart';
@@ -19,8 +20,15 @@ class _SplashScreenState extends State<SplashScreen> {
   final supabase = Supabase.instance.client;
 
   Future<void> nextScreen()async{
+
+    final userId = supabase.auth.currentUser!.id;
+
+    final List data = await supabase.from('user_details').select('role').eq('id', userId);
+
+    bool isUser = (data.first)['role'] as bool;
+
     if(supabase.auth.currentUser != null){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>MainScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> isUser ?  MainScreen() : AdminDashboard()));
     } else {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>Onboarding1Screen()));
     }
