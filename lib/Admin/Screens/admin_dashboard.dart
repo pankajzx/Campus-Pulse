@@ -1,270 +1,249 @@
-import 'package:campuspulse/providers/auth/pulse_auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'glass.dart';
 
-import 'new_event_screen.dart';
-
-class AdminDashboard extends StatelessWidget {
+class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
+
+  @override
+  State<AdminDashboard> createState() => _AdminDashboardState();
+}
+
+class _AdminDashboardState extends State<AdminDashboard>
+    with SingleTickerProviderStateMixin {
+
+  late AnimationController _controller;
+  late Animation<double> _fade;
+  late Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+
+    _fade = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    );
+
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.08),
+      end: Offset.zero,
+    ).animate(_fade);
+
+    _controller.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0E1328),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const NewEventScreen()),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF0E1328),
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.white54,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.confirmation_number), label: "Tickets"),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
 
-              /// HEADER
-              Row(
+      /// FAB (smooth scale)
+      floatingActionButton: ScaleTransition(
+        scale: _fade,
+        child: FloatingActionButton(
+          backgroundColor: Colors.blueAccent.withOpacity(0.9),
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
+      ),
+
+      /// iOS Glass Bottom Bar
+      bottomNavigationBar: glass(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(26),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: Colors.blueAccent,
+          unselectedItemColor: Colors.white60,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.confirmation_number), label: "Tickets"),
+            BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Stats"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
+        ),
+      ),
+
+      body: SafeArea(
+        child: FadeTransition(
+          opacity: _fade,
+          child: SlideTransition(
+            position: _slide,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 22,
-                    backgroundImage: NetworkImage(
-                      "https://i.pravatar.cc/150?img=3",
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  /// HEADER
+                  Row(
                     children: [
-                      Text("Welcome back,", style: TextStyle(color: Colors.white54)),
-                      Text(
-                        "Sarah J.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      const CircleAvatar(
+                        radius: 22,
+                        backgroundImage:
+                        NetworkImage("https://i.pravatar.cc/150?img=3"),
+                      ),
+                      const SizedBox(width: 12),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Welcome back",
+                              style: TextStyle(color: Colors.white60)),
+                          Text("Sarah J.",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      const Spacer(),
+                      glass(
+                        shape: BoxShape.circle,
+                        child: const Icon(Icons.notifications,
+                            color: Colors.white),
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  Consumer<PulseAuthProvider>(
-                    builder: (context,provider,child) {
-                      return GestureDetector(
-                        onTap: (){
-                          provider.logOut();
-                        } ,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white10,
-                          ),
-                          child: const Icon(Icons.notifications, color: Colors.white),
-                        ),
-                      );
-                    }
-                  )
-                ],
-              ),
 
-              const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-              /// STATS
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                childAspectRatio: 1.2,
-                children: const [
-                  StatCard(title: "Total Revenue", value: "\$1,240", percent: "+12%"),
-                  StatCard(title: "Tickets Sold", value: "342", percent: "+5%"),
-                  StatCard(title: "Active Events", value: "3", percent: "Active"),
-                  StatCard(title: "Page Views", value: "12k", percent: "+22%"),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
-              /// QUICK ACTIONS
-              const Text("Quick Actions",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(height: 12),
-
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const NewEventScreen()),
-                        );
-                      },
-                      icon: const Icon(Icons.add),
-                      label: const Text("Create Event"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                    ),
+                  /// STATS
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 1.2,
+                    children: const [
+                      StatCard("Revenue", "\$1,240", "+12%"),
+                      StatCard("Tickets", "342", "+5%"),
+                      StatCard("Events", "3", "Active"),
+                      StatCard("Views", "12k", "+22%"),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
-                      label: const Text("Scan Tickets",
-                          style: TextStyle(color: Colors.white)),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Colors.white24),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                    ),
+
+                  const SizedBox(height: 24),
+
+                  /// UPCOMING EVENTS
+                  const Text(
+                    "Upcoming Events",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  eventCard(
+                    title: "Campus Jazz Night",
+                    location: "Student Union Hall",
+                    progress: 0.85,
+                    sold: "215/250",
+                  ),
+                  eventCard(
+                    title: "Tech Hackathon 2024",
+                    location: "Engineering Block B",
+                    progress: 0.12,
+                    sold: "36/300",
+                  ),
+                  eventCard(
+                    title: "Art & Wine Workshop",
+                    location: "Draft",
+                    progress: 0,
+                    sold: "Setup Required",
+                    isDraft: true,
                   ),
                 ],
               ),
-
-              const SizedBox(height: 24),
-
-              /// UPCOMING EVENTS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Upcoming Events",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
-                  Text("See All", style: TextStyle(color: Colors.blueAccent)),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-
-              eventCard(
-                title: "Campus Jazz Night",
-                location: "Student Union Hall",
-                progress: 0.85,
-                sold: "215/250",
-              ),
-              eventCard(
-                title: "Tech Hackathon 2024",
-                location: "Engineering Block B",
-                progress: 0.12,
-                sold: "36/300",
-              ),
-              eventCard(
-                title: "Art & Wine Workshop",
-                location: "Date not set",
-                progress: 0,
-                sold: "Setup Required",
-                isDraft: true,
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
+}
 
-  static Widget eventCard({
-    required String title,
-    required String location,
-    required double progress,
-    required String sold,
-    bool isDraft = false,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A1F3C),
-        borderRadius: BorderRadius.circular(18),
-      ),
+/// EVENT CARD
+Widget eventCard({
+  required String title,
+  required String location,
+  required double progress,
+  required String sold,
+  bool isDraft = false,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 12),
+    child: glass(
+      borderRadius: BorderRadius.circular(18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 6),
-          Text(location, style: const TextStyle(color: Colors.white54)),
+          Text(location,
+              style: const TextStyle(color: Colors.white60)),
           const SizedBox(height: 10),
           if (!isDraft)
-            LinearProgressIndicator(
-              value: progress,
-              backgroundColor: Colors.white12,
-              color: Colors.blueAccent,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 6,
+                backgroundColor: Colors.white12,
+                color: Colors.blueAccent,
+              ),
             ),
-          const SizedBox(height: 6),
-          Text(sold, style: const TextStyle(color: Colors.white54)),
+          const SizedBox(height: 8),
+          Text(sold,
+              style: const TextStyle(color: Colors.white60)),
         ],
       ),
-    );
-  }
+    ),
+  );
 }
 
+/// STAT CARD
 class StatCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final String percent;
-
-  const StatCard({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.percent,
-  });
+  final String title, value, percent;
+  const StatCard(this.title, this.value, this.percent, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A1F3C),
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0.9, end: 1.0),
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+      builder: (_, scale, child) =>
+          Transform.scale(scale: scale, child: child),
+      child: glass(
         borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(color: Colors.white54)),
-          const Spacer(),
-          Text(value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Text(percent, style: const TextStyle(color: Colors.greenAccent)),
-        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: const TextStyle(color: Colors.white60)),
+            const Spacer(),
+            Text(value,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold)),
+            const SizedBox(height: 6),
+            Text(percent,
+                style: const TextStyle(color: Colors.greenAccent)),
+          ],
+        ),
       ),
     );
   }
