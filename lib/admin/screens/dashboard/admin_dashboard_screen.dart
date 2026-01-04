@@ -1,6 +1,12 @@
-import 'package:campuspulse/providers/auth/pulse_auth_provider.dart';
+import 'package:campuspulse/common/widgets/glass_card.dart';
+import 'package:campuspulse/common/widgets/pulse_appbar.dart';
+import 'package:campuspulse/common/widgets/shadow_container.dart';
+import 'package:campuspulse/screens/home/widgets/upcoming_event_card.dart';
+import 'package:campuspulse/utils/constants/pulse_colors.dart';
+import 'package:campuspulse/utils/constants/pulse_text.dart';
+import 'package:campuspulse/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
@@ -12,16 +18,6 @@ class AdminDashboardScreen extends StatefulWidget {
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: Consumer<PulseAuthProvider>(
-        builder: (context,provider,child) {
-          return FloatingActionButton(
-            onPressed: provider.logOut,
-            child: Text('Log Out'),
-          );
-        }
-      ),
-      body: Center(child: Text('Admin Screen')),
-    );
+    return Text('Admin Dashboard');
   }
 }
