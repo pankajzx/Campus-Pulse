@@ -1,5 +1,4 @@
 import 'package:campuspulse/common/widgets/glass_card.dart';
-import 'package:campuspulse/common/widgets/pulse_appbar.dart';
 import 'package:campuspulse/common/widgets/top_navigation_bar.dart';
 import 'package:campuspulse/utils/constants/pulse_text.dart';
 import 'package:campuspulse/utils/utils.dart';
@@ -107,7 +106,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                           style: PulseText.body,
                           children: [
                             TextSpan(text: '  •   Internet\n'),
-                            TextSpan(text: '  •   Notifications\n'),
+                            TextSpan(text: '  •   Notifications'),
                           ],
                         ),
                       ),
