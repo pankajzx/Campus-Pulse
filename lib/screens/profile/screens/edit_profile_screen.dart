@@ -71,7 +71,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         btnColor = PulseColors.green;
       });
 
-      // 👇 go back AFTER successful update
       Navigator.pop(context);
 
     } catch (e) {
@@ -96,7 +95,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   spacing: 15,
                   children: [
-                    // --- Profile image (not editable)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: Stack(
@@ -149,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       style: PulseText.body.copyWith(color: PulseColors.blue),
                     ),
 
-                    // --- Name
+
                     TextFieldPulse(
                       controller: nameController,
                       label: 'Full name',
@@ -157,7 +155,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       hint: 'Enter your name',
                     ),
 
-                    // --- University
+
                     TextFieldPulse(
                       controller: uniController,
                       label: 'University name',
@@ -165,7 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       hint: 'Enter university name',
                     ),
 
-                    // --- Phone (+91 shown)
+
                     TextFieldPulse(
                       controller: phoneController,
                       label: 'Phone number',
@@ -183,7 +181,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       hint: '',
                     ),
 
-                    // --- Email (read-only)
+
                     TextFieldPulse(
                       label: 'Email address',
                       hint: widget.emailId,
