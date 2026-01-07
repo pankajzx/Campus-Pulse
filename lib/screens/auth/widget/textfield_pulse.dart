@@ -10,6 +10,7 @@ class TextFieldPulse extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool? obscureText,readOnly;
+  final int? maxline;
 
   const TextFieldPulse({
     super.key,
@@ -20,7 +21,8 @@ class TextFieldPulse extends StatelessWidget {
     this.controller,
     this.validator,
     this.obscureText,
-    this.readOnly
+    this.readOnly,
+    this.maxline = 1,
   });
 
   @override
@@ -35,6 +37,7 @@ class TextFieldPulse extends StatelessWidget {
           validator: validator,
           readOnly: readOnly ?? false,
           obscureText: obscureText ?? false,
+          maxLines: maxline,
           decoration: InputDecoration(
             visualDensity:VisualDensity.compact,
             hintText: hint,
