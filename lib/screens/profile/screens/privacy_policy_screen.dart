@@ -14,19 +14,25 @@ class PrivacyPolicyScreen extends StatelessWidget {
       body: Padding(
         padding: Utils.screenPadding(),
         child: SingleChildScrollView(
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 14,
-              children: [
-                Text('About Policy', style: PulseText.label),
-                GlassCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 14,
+            children: [
+              Text('About Policy', style: PulseText.label),
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     'Campus Pulse is a campus event management app that lets students browse events, register, and use digital tickets. This policy explains how we handle your information.',
                   ),
                 ),
-                Text('Information We Collect', style: PulseText.label),
-                GlassCard(
+              ),
+
+              Text('Information We Collect', style: PulseText.label),
+
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: RichText(
                     text: TextSpan(
                       text:
@@ -50,8 +56,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text('How We Use Your Information', style: PulseText.label),
-                GlassCard(
+              ),
+
+              Text('How We Use Your Information', style: PulseText.label),
+
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
                       RichText(
@@ -81,14 +92,24 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text('Security & Retention', style: PulseText.label),
-                GlassCard(
+              ),
+
+              Text('Security & Retention', style: PulseText.label),
+
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     'We protect your data with reasonable safeguards and keep it only as long as needed for event management.',
                   ),
                 ),
-                Text('Permissions', style: PulseText.label),
-                GlassCard(
+              ),
+
+              Text('Permissions', style: PulseText.label),
+
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
                       RichText(
@@ -104,15 +125,20 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text('Changes', style: PulseText.label),
-                GlassCard(
+              ),
+
+              Text('Changes', style: PulseText.label),
+
+              GlassCard(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: Text(
                     'We may update this policy when features change. Updates will be shown in the app.',
                   ),
                 ),
-                Utils.spacePulse()
-              ],
-            ),
+              ),
+              Utils.spacePulse()
+            ],
           ),
         ),
       ),
