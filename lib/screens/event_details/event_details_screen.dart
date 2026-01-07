@@ -59,7 +59,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
 
     setState(() {
       getTicket = tickets.any((t) => t['event_id'] == widget.eventId);
-      userName = name;  // store in a state variable
+      userName = name;
     });
 
   }
