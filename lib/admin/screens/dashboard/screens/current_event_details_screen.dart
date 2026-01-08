@@ -9,7 +9,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../screens/event_details/widgets/event_details_card.dart';
 import '../../../../utils/utils.dart';
 
-
 class CurrentEventDetailsScreen extends StatefulWidget {
   final dynamic eventId;
   const CurrentEventDetailsScreen({super.key, required this.eventId});
