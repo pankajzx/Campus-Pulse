@@ -13,6 +13,9 @@ class CurrentEvents extends StatelessWidget {
   final DateTime date;
   final String title, location;
   final Color color;
+  final String eventId;
+  VoidCallback onEdit;
+  VoidCallback onDelete;
 
   CurrentEvents({
     super.key,
@@ -20,6 +23,9 @@ class CurrentEvents extends StatelessWidget {
     required this.location,
     required this.color,
     required this.date,
+    required this.eventId,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   @override
@@ -74,9 +80,21 @@ class CurrentEvents extends StatelessWidget {
             ),
           ),
 
-          CircularContainer(color: PulseColors.red,icon: FaIcon(FontAwesomeIcons.trash)),
+          GestureDetector(
+            onTap: onEdit,
+            child: CircularContainer(
+              color: PulseColors.green,
+              icon: FaIcon(FontAwesomeIcons.pencil),
+            ),
+          ),
 
-
+          GestureDetector(
+            onTap: onDelete,
+            child: CircularContainer(
+              color: PulseColors.red,
+              icon: FaIcon(FontAwesomeIcons.trash),
+            ),
+          ),
         ],
       ),
     );
