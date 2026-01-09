@@ -8,7 +8,9 @@ import '../../../utils/utils.dart';
 import '../../auth/widget/textfield_pulse.dart';
 
 class SignupScreen extends StatefulWidget {
+
   const SignupScreen({super.key});
+
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -23,6 +25,9 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController confirmPasswordController = TextEditingController();
   bool loading = false;
   bool isUser = true;
+
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
 
   final supabase = Supabase.instance.client;
 
@@ -101,7 +106,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 hint: 'Campus Pulse',
                 prefixIcon: const Icon(Icons.person),
                 validator: (v) =>
-                v == null || v.isEmpty ? 'Please enter your name.' : null,
+                    v == null || v.isEmpty ? 'Please enter your name.' : null,
               ),
 
               Utils.spacePulse(),
@@ -113,7 +118,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 prefixIcon: const Icon(Icons.email),
                 validator: (v) {
                   if (v == null || v.isEmpty) return 'Please enter your email.';
-                  if (!v.contains('@')) return 'Enter a valid email';
+                  if (!v.contains('@gmail.com')) {
+                    return 'Enter a valid email.';
+                  }
                   return null;
                 },
               ),
@@ -124,9 +131,20 @@ class _SignupScreenState extends State<SignupScreen> {
                 controller: passwordController,
                 label: 'Password',
                 hint: 'Create Password',
-                obscureText: true,
+                obscureText: !_passwordVisible,
                 prefixIcon: const Icon(Icons.lock),
-                suffixIcon: const Icon(Icons.remove_red_eye_sharp),
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _passwordVisible = !_passwordVisible;
+                    });
+                  },
+                  child: Icon(
+                    _passwordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
                 validator: (v) {
                   if (v == null || v.isEmpty) return 'Password is required.';
                   if (v.length < 8) {
@@ -142,9 +160,22 @@ class _SignupScreenState extends State<SignupScreen> {
                 controller: confirmPasswordController,
                 label: 'Confirm Password',
                 hint: 'Repeat your password',
-                obscureText: true,
+                obscureText: !_confirmPasswordVisible,
                 prefixIcon: const Icon(Icons.lock_reset),
-                suffixIcon: const Icon(Icons.remove_red_eye_sharp),
+
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _confirmPasswordVisible = !_confirmPasswordVisible;
+                    });
+                  },
+                  child: Icon(
+                    _confirmPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
+
                 validator: (v) {
                   if (v == null || v.isEmpty) {
                     return 'Confirm Password is required.';
@@ -155,6 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   return null;
                 },
               ),
+
 
               Utils.spacePulse(height: 6),
 
@@ -186,8 +218,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 style: isUser
                                     ? PulseText.body
                                     : PulseText.body.copyWith(
-                                  color: PulseColors.primaryLight,
-                                ),
+                                        color: PulseColors.primaryLight,
+                                      ),
                               ),
                             ],
                           ),
@@ -197,7 +229,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => isUser = false),
+                        // onTap: () => setState(() => isUser = false),
                         child: GlassCard(
                           child: Row(
                             spacing: 10,
@@ -215,8 +247,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 style: !isUser
                                     ? PulseText.body
                                     : PulseText.body.copyWith(
-                                  color: PulseColors.primaryLight,
-                                ),
+                                        color: PulseColors.primaryLight,
+                                      ),
                               ),
                             ],
                           ),
