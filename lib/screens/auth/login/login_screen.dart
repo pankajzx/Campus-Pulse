@@ -9,15 +9,21 @@ import '../../../utils/utils.dart';
 import '../forget_password/forget_password_screen.dart';
 import '../signup/signup_screen.dart';
 
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
+
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'Email is required.';
                       }
-                      if (!value.contains('@')) {
+                      if (!value.contains('@gmail.com')) {
                         return 'Enter a valid email.';
                       }
                       return null;
@@ -62,8 +68,20 @@ class LoginScreen extends StatelessWidget {
                     controller: passwordController,
                     label: 'Password',
                     hint: '********',
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                      child: Icon(
+                        _passwordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required.';
@@ -80,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const ForgetPasswordScreen(),
+                            builder: (_) =>  ForgetPasswordScreen(),
                           ),
                         );
                       },
@@ -91,14 +109,22 @@ class LoginScreen extends StatelessWidget {
                   Utils.spacePulse(),
 
                   Consumer<PulseAuthProvider>(
-                    builder: (context,provider,child) {
+                    builder: (context, provider, child) {
                       return GestureDetector(
-                        onTap: () =>  provider.login(emailController.text.toLowerCase(),passwordController.text),
+                        onTap: () => provider.login(
+                          emailController.text.toLowerCase(),
+                          passwordController.text,
+                        ),
                         child: GlassCard(
-                          child: Center(child: Text( provider.loading ? 'Verifying...' : 'Login',style: PulseText.btnTxt)),
+                          child: Center(
+                            child: Text(
+                              provider.loading ? 'Verifying...' : 'Login',
+                              style: PulseText.btnTxt,
+                            ),
+                          ),
                         ),
                       );
-                    }
+                    },
                   ),
                 ],
               ),
@@ -108,27 +134,27 @@ class LoginScreen extends StatelessWidget {
 
             Row(
               children: [
-                Expanded(
-                  child: Divider(
-                    color: PulseColors.primaryLight,
-                  ),
-                ),
+                Expanded(child: Divider(color: PulseColors.primaryLight)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text('Or continue with', style: PulseText.body),
                 ),
-                Expanded(
-                  child: Divider(
-                    color: PulseColors.primaryLight,
-                  ),
-                ),
+                Expanded(child: Divider(color: PulseColors.primaryLight)),
               ],
             ),
 
             Utils.spacePulse(height: 24),
 
             GlassCard(
-              child: Center(child: Text('Google',style: PulseText.body.copyWith(fontSize: 18,fontWeight: FontWeight.w500))),
+              child: Center(
+                child: Text(
+                  'Coming soon...',
+                  style: PulseText.bodyLight.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ),
 
             Utils.spacePulse(height: 24),
@@ -141,9 +167,7 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const SignupScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const SignupScreen()),
                     );
                   },
                   child: Text(
