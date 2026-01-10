@@ -8,9 +8,9 @@ import '../../../../utils/constants/pulse_text.dart';
 class AllUsers extends StatelessWidget {
   final int count;
   final String name;
-  VoidCallback onDelete;
+  final VoidCallback onDelete;
 
-  AllUsers({
+  const AllUsers({
     super.key,
     required this.count,
     required this.name,
@@ -21,26 +21,23 @@ class AllUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlassCard(
       child: Row(
-        spacing: 15,
         children: [
           CircleAvatar(
             radius: 25,
             backgroundColor: PulseColors.primary.withAlpha(10),
-            child: Text('${count}', style: PulseText.label),
+            child: Text('$count', style: PulseText.label),
           ),
-
-          Text(name, style: PulseText.label),
-
-          Spacer(),
-
+          const SizedBox(width: 15),
+          Expanded(
+            child: Text(name, style: PulseText.label),
+          ),
           GestureDetector(
             onTap: onDelete,
             child: CircularContainer(
               color: PulseColors.red,
-              icon: FaIcon(FontAwesomeIcons.trash),
+              icon: const FaIcon(FontAwesomeIcons.trash),
             ),
           ),
-
         ],
       ),
     );
