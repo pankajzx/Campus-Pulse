@@ -6,41 +6,37 @@ import '../../../../utils/constants/pulse_colors.dart';
 import '../../../../utils/constants/pulse_text.dart';
 
 class TotalUsers extends StatelessWidget {
-
   final int userCount;
 
-  const TotalUsers({super.key,required this.userCount});
+  const TotalUsers({super.key, required this.userCount});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      spacing: 15,
+    return Column(
       children: [
         GlassCard(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10,
               children: [
-                FaIcon(
+                const FaIcon(
                   FontAwesomeIcons.userGroup,
                   color: PulseColors.blue,
                   size: 15,
                 ),
+                const SizedBox(width: 8),
                 Text(
                   'TOTAL USERS',
-                  style: PulseText.label.copyWith(
-                    color: PulseColors.primaryLight,
-                  ),
+                  style: PulseText.label.copyWith(color: PulseColors.primaryLight),
                 ),
-
-                FaIcon(
+                const SizedBox(width: 8),
+                const FaIcon(
                   FontAwesomeIcons.arrowTrendUp,
                   color: PulseColors.green,
                   size: 12,
                 ),
+                const SizedBox(width: 4),
                 Text(
                   userCount.toString(),
                   style: PulseText.btnTxt.copyWith(color: PulseColors.green),
@@ -49,10 +45,13 @@ class TotalUsers extends StatelessWidget {
             ),
           ),
         ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text('All users', style: PulseText.label)],
+        const SizedBox(height: 15),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'All users',
+            style: PulseText.label,
+          ),
         ),
       ],
     );
